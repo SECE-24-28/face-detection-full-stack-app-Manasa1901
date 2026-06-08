@@ -1,0 +1,23 @@
+import jwt from "jsonwebtoken";
+
+const SECRET = process.env.JWT_SECRET!;
+
+export function createToken(
+  userId: string,
+  email: string
+) {
+  return jwt.sign(
+    {
+      userId,
+      email,
+    },
+    SECRET,
+    {
+      expiresIn: "7d",
+    }
+  );
+}
+
+export function verifyToken(token: string) {
+  return jwt.verify(token, SECRET);
+}
